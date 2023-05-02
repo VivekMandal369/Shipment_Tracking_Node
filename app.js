@@ -1,9 +1,18 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req,res) => {
-  res.send("Hello Vivek! It's working fine.");
-});
+const client = require('./database');
 
-app.listen(process.env.port || 3000);
-console.log('Web Server is listening at port '+ (process.env.port || 3000));
+// Use connect method to connect to the Server
+client.connect(function(err) {
+  console.log("Connected successfully to server");
+  if(err){
+    console.log(err);
+  }
+  // ...rest of your application code goes here...
+  
+  // Start the server
+  app.listen(3000, function() {
+    console.log('App listening on port 3000');
+  });
+});
